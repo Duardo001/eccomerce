@@ -1,7 +1,6 @@
 package br.com.fiap.ecommerce.controller;
 
 import java.util.List;
-
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,24 +28,22 @@ public class ProdutoController {
 
     @GetMapping
     public List<ProdutoResponseDto> list() {
-
         List<ProdutoResponseDto> dtos = produtoService.list()
                 .stream()
-                // e = igual elemento que chama uma função e por um método o transforma em algo
-                // novo(?)
                 .map(e -> new ProdutoResponseDto().toDto(e))
                 .toList();
+
         return dtos;
+        // return null;
     }
 
     @PostMapping
     public ProdutoResponseDto create(@RequestBody ProdutoRequestCreateDto dto) {
         // ProdutoRequestCreateDto - > Produto
-        // Produto produto = dto.toModel();
-        // Produto saved = produtoService.save();
+        Produto produto = dto.toModel();
+        Produto saved = produtoService.save(produto);
         // Produto - > ProdutoRequestCreateDto
-
-        return null;
+        return new ProdutoResponseDto().toDto(saved);
     }
 
     // localhost:8080/produtos/5
@@ -63,7 +60,8 @@ public class ProdutoController {
         if (!produtoService.existsById(id)) {
             new RuntimeException("Id inexistente");
         }
-        return null;
+
+        return new ProdutoResponseDto().toDto(produtoService.save(dto.toModel()));
     }
 
     @DeleteMapping("{id}")

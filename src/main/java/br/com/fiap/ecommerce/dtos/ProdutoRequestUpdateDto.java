@@ -1,21 +1,33 @@
 package br.com.fiap.ecommerce.dtos;
 
+import org.modelmapper.ModelMapper;
+
+import br.com.fiap.ecommerce.model.Produto;
+
 public class ProdutoRequestUpdateDto {
     
-    private Long id;
+    // private Long id;
     private String nome;
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private static final ModelMapper modelMapper = new ModelMapper();
+    
+    // public Long getId() {
+    //     return id;
+    // }
+    // public void setId(Long id) {
+    //     this.id = id;
+    // }
     public String getNome() {
         return nome;
     }
     public void setNome(String nome) {
         this.nome = nome;
     }
+    public Produto toModel(Long id) {
+        Produto result = modelMapper.map(this, Produto.class);
+        result.setId(id);
+        return result;
+        // return modelMapper.map(this, Produto.class);
+     }
 
     
 }
