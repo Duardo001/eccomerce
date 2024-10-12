@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.fiap.ecommerce.dtos.ProdutoResponseDto;
 import br.com.fiap.ecommerce.model.Produto;
 import br.com.fiap.ecommerce.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
